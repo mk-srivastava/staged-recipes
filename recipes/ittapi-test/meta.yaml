@@ -1,0 +1,45 @@
+{% set name = "ittapi-test" %}
+{% set version = "1.1.0" %}
+
+package:
+  name: {{ name|lower }}
+  version: {{ version }}
+
+source:
+  git_url: https://github.com/intel/ittapi
+  git_depth: 1
+
+build:
+  missing_dso_whitelist:
+    - "*/libstdc++.so*"
+    - "*/libgcc_s.so*"
+  number: 0
+
+requirements:
+  build:
+    - {{ compiler('c') }}
+    - {{ stdlib('c') }}
+    - {{ compiler('cxx') }}
+  host:
+    - python >=3.8
+    - setuptools >=61.0
+    - pip
+  run:
+    - python >=3.8
+
+test:
+  imports:
+    - ittapi
+  commands:
+    - pip check
+  requires:
+    - pip
+
+about:
+  summary: Python bindings to Intel Instrumentation and Tracing Technology (ITT) API.
+  license: ''
+  license_file:
+
+extra:
+  recipe-maintainers:
+    - mk-srivastava
