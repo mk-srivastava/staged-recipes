@@ -1,24 +1,23 @@
-{% set name = "ittapi-test" %}
-{% set version = "1.1.0" %}
+{% set name = "ittapi" %}
+{% set version = "3.25.2" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  git_url: https://github.com/intel/ittapi
-  git_depth: 1
+  url: https://github.com/intel/{{ name }}/archive/refs/tags/v{{ version }}.zip
+  sha256: d01825ee713c0cea36c507462a7ce3809909f83068a13114ee38e15a45a4e0b3
 
 build:
   missing_dso_whitelist:
-    - "*/libstdc++.so*"
-    - "*/libgcc_s.so*"
+    - "*libstdc++.so*"
+    - "*libgcc_s.so*"
   number: 0
 
 requirements:
   build:
     - {{ compiler('c') }}
-    - {{ stdlib('c') }}
     - {{ compiler('cxx') }}
   host:
     - python >=3.8
